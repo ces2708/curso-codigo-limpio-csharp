@@ -35,7 +35,7 @@ namespace ToDo
         public static int ShowMainMenu()
         {
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("Ingrese la opción a realizar2: ");
+            Console.WriteLine("Ingrese la opción a realizar: ");
             Console.WriteLine("1. Nueva tarea");
             Console.WriteLine("2. Remover tarea");
             Console.WriteLine("3. Tareas pendientes");
