@@ -5,7 +5,7 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TaskList { get; set; }
+        public static List<string> TaskList2 { get; set; }
 
         static void Main(string[] args)
         {
