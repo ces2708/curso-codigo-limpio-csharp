@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 
-namespace ToDo
-{
-    internal class Program
-    {
-        public static List<string> TaskList { get; set; }
 
-        static void Main(string[] args)
-        {
-            TaskList = new List<string>();
+   
+    List<string> TaskList = new List<string>();
+
+      
+            
             int menuSelected = 0;
             do
             {
@@ -27,12 +23,12 @@ namespace ToDo
                     ShowMenuTaskList();
                 }
             } while ((Menu)menuSelected != Menu.Exit);
-        }
+        
         /// <summary>
-        /// Show the main menu 
+        /// Show the option for task, 1. nueva tarea
         /// </summary>
-        /// <returns>Returns option indicated by user</returns>
-        public static int ShowMainMenu()
+        /// <returns>Returns option selected by user</returns>
+        int ShowMainMenu()
         {
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Ingrese la opción a realizar: ");
@@ -41,21 +37,21 @@ namespace ToDo
             Console.WriteLine("3. Tareas pendientes");
             Console.WriteLine("4. Salir");
 
-            // Read line
+            
             string optionChoseUser = Console.ReadLine();
             return Convert.ToInt32(optionChoseUser);
         }
 
-        public static void ShowMenuRemove()
+        void ShowMenuRemove()
         {
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
-                // Show current taks
+                
                 ShowTaskList();
 
                 string optionChoseUser = Console.ReadLine();
-                // Remove one position
+                // Remove one position because the array starts in 0
                 int indexToRemove = Convert.ToInt32(optionChoseUser) - 1;
                 if(indexToRemove > (TaskList.Count -1) || indexToRemove <0)
                 {
@@ -69,7 +65,7 @@ namespace ToDo
                     
                         string task = TaskList[indexToRemove];
                         TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                        Console.WriteLine($"Tarea {task} eliminada");
                         
                     }
 
@@ -82,45 +78,57 @@ namespace ToDo
             }
         }
 
-        public static void ShowMenuAdd()
+        void ShowMenuAdd()
         {
             try
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
                 string task = Console.ReadLine();
-                TaskList.Add(task);
-                Console.WriteLine("Tarea registrada");
+                if(string.IsNullOrEmpty(task)== true)
+                {
+                    Console.WriteLine("No capturaste nada");
+
+                }
+                else
+                {
+                    TaskList.Add(task);
+                    Console.WriteLine("Tarea registrada");
+
+                }
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("Ha ocurrido un error al capturar la tarea");
             }
         }
 
-        public static void ShowMenuTaskList()
+        void ShowMenuTaskList()
         {
-            if (TaskList == null || TaskList.Count == 0)
+            if (TaskList?.Count > 0)
             {
-                Console.WriteLine("No hay tareas por realizar");
+                ShowTaskList();
             } 
             else
             {
-                ShowTaskList();
+                Console.WriteLine("No hay tareas por realizar");
+                
             }
         }
 
-        public static void ShowTaskList()
+        void ShowTaskList()
         {
             
             
             Console.WriteLine("----------------------------------------");
             var indexTask=1;
-            TaskList.ForEach(p=> Console.WriteLine(indexTask++ + ". " + p));
+            TaskList.ForEach(p=> Console.WriteLine($"{indexTask++}  .   {p}"));
             Console.WriteLine("----------------------------------------");
             
         }
-    }
+    
 
-    public enum Menu 
+    enum Menu 
     {
         Add = 1,
 
@@ -131,4 +139,4 @@ namespace ToDo
         Exit = 4
 
     }
-}
+
